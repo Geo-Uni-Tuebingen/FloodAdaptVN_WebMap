@@ -65,7 +65,7 @@ var Stations_all=
       if (feature.properties.class =="rainfall"){
       return L.marker(latlng, {
         icon: L.icon({
-          iconUrl: "marker/station_rainfall.svg",
+          iconUrl: "Marker/station_rainfall.svg",
           iconSize: [20, 20],
           iconAnchor: [10, 10]
         })
@@ -73,7 +73,7 @@ var Stations_all=
       else if (feature.properties.class =="hydrological"){
         return L.marker(latlng, {
           icon: L.icon({
-            iconUrl: "marker/station_hydrological.svg",
+            iconUrl: "Marker/station_hydrological.svg",
             iconSize: [20, 20],
             iconAnchor: [10, 10]
           })
@@ -81,7 +81,7 @@ var Stations_all=
       else if (feature.properties.class =="hydro-meteorology"){
         return L.marker(latlng, {
           icon: L.icon({
-            iconUrl: "marker/station_hydrometeorological.svg",
+            iconUrl: "Marker/station_hydrometeorological.svg",
             iconSize: [15, 15],
             iconAnchor: [7.5, 7.5]
           })
