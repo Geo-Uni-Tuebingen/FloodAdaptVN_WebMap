@@ -4,11 +4,12 @@ var mymap = L.map('mapid').setView([16.35,107.6], 10);
 
 // #### BASEMAPS ####
 
-var Wikimedia = L.tileLayer('https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}{r}.png', {
-	attribution: '<a href="https://wikimediafoundation.org/wiki/Maps_Terms_of_Use">Wikimedia</a>',
-	minZoom: 1,
-	maxZoom: 19
-}).addTo(mymap);
+
+var OpenStreetMap = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+	maxZoom: 19,
+	attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+});
+
 
 var OpenTopoMap = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
 	maxZoom: 17,
@@ -113,12 +114,13 @@ var wards=
 //#### KONTROLLSTATION ####
 mymap.doubleClickZoom.disable();    // damit der Zoom beim Doppelklick ausgeschalten wird
 
+
 var baseMaps = [
   { 
     groupName : "Basiskarten",
     expanded : true,
     layers    : {
-      "Wikimedia": Wikimedia,
+      "OSM": OpenStreetMap,
       "Open Topo Map": OpenTopoMap,
       "World Imagery": Esri_WorldImagery
     }
