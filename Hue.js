@@ -67,6 +67,27 @@ var layer_PAZ_20191009_4 = new L.imageOverlay(img_PAZ_20191009_4,
   });
 
 
+//#### INFOBANNER ####
+
+var Infobanner = L.control({
+  position: 'bottomright'
+});
+
+Infobanner.onAdd = function (mymap) {
+  var div = L.DomUtil.create('div', 'info-legend');
+  div.innerHTML += '<table><tr><td>' + '<center><font size=0>' + '<a href="' + 'https://floodadapt.eoc.dlr.de' + '">' + '<img src="Grafiken/FloodAdapt.png" alt="" width="50%"></img>' + '</a>' 
+  + '<br>' +'FloodAdaptVN – Integrating Ecosystem-based Approaches into Flood Risk' + '<br>' 
+  + 'Management for Adaptive and Sustainable Urban Development in Central Viet Nam' + '</a></td>'
+  + '<td><font size=0>' + '<center>' + 'sponsored by' + '<br>'+ '<a href="' + 'https://www.bmbf.de/en/index.html' + '">' 
+  + '<img src="Grafiken/Ministerium.png" alt="" width="70%"></img>' + '</a></td></tr>'
+  
+  return div;
+};
+
+
+
+Infobanner.addTo(mymap);
+
 //#### POPUPS ####
 
 var Popupoptionen = {
@@ -113,35 +134,108 @@ var Stations_all =
   }).addTo(mymap) // Messtationen werden aus dem geoJSON Format eingelesen und bekommen je nach Stationstyp einem einen anderen Marker, der im Ordner "marker" als svg hinterlegt ist
 
 // #_2_# Anfang //
-var legend = L.control({
-  position: 'bottomleft'  
+//Legende bzw. Downloadlink für die Messstationen
+var legend_stations = L.control({
+  position: 'bottomleft'
 });
 
-legend.onAdd = function (mymap) {
+legend_stations.onAdd = function (mymap) {
   var div = L.DomUtil.create('div', 'info-legend');
 
-  div.innerHTML += '<strong><center> Messstationen </strong>' + '<br>'
-  div.innerHTML += '<img src="Marker/station_rainfall.svg" width=15, height=15>' + '&nbsp'+ '&nbsp'+ 'Niederschlag' + '<br>'
-  div.innerHTML += '<img src="Marker/station_hydrological.svg" width=15, height=15>' + '&nbsp'+'&nbsp'+ 'Hydrologie' + '<br>'
-  div.innerHTML += '<img src="Marker/station_hydrometeorological.svg" width=15, height=15>' + '&nbsp'+ '&nbsp'+ 'Hydrologie und Niederschlag'
+  div.innerHTML += '<strong><center><font size=3>Messstationen </strong>' + '<br>'
+  div.innerHTML += '<img src="Marker/station_rainfall.svg" width=15, height=15>' + '&nbsp' + '&nbsp' + 'Niederschlag' + '<br>'
+  div.innerHTML += '<img src="Marker/station_hydrological.svg" width=15, height=15>' + '&nbsp' + '&nbsp' + 'Hydrologie' + '<br>'
+  div.innerHTML += '<img src="Marker/station_hydrometeorological.svg" width=15, height=15>' + '&nbsp' + '&nbsp' + 'Hydrologie und Niederschlag' + '<br>'
+  div.innerHTML += '<center><a href="' + 'https://github.com/ManuN/FloodVPN_WebMap/blob/master/Daten/hydrometeorological_stations.js' + '">' + '<img src="Grafiken/Download.svg" height=20>' + '</a>' //Downlaodlink für die Messstationen
 
   return div;
 };
 
-legend.addTo(mymap);
+legend_stations.addTo(mymap); // schon von Anfang an geladen, da Stationen bereits angezeigt werden
 
-mymap.on('overlayremove', function(event) {
+mymap.on('overlayremove', function (event) {
   if (event.layer == Stations_all) {
-    legend.remove(mymap);
+    legend_stations.remove(mymap);
   }
 });
 
-mymap.on('overlayadd', function(event) {
+mymap.on('overlayadd', function (event) {
   if (event.layer == Stations_all) {
-    legend.addTo(mymap);
+    legend_stations.addTo(mymap);
   }
 });
 // #_2_# Ende //
+
+// #_3_# Anfang //
+//Legende bzw. Downloadlink für die Stadttteile
+var legend_wards = L.control({
+  position: 'bottomleft'
+});
+
+legend_wards.onAdd = function (mymap) {
+  var div = L.DomUtil.create('div', 'info-legend');
+
+  div.innerHTML += '<strong><center><font size=3> Stadtteile </strong>' + '<br>'
+  div.innerHTML += '<center><a href="' + 'https://github.com/ManuN/FloodVPN_WebMap/blob/master/Daten/HueProvince_wards.js' + '">' + '<img src="Grafiken/Download.svg" height=20>' + '</a>' //Downlaodlink für die Stadtteile
+
+  return div;
+};
+
+legend_wards.addTo(mymap); // schon von Anfang an geladen, da Stadtteile bereits angezeigt werden
+
+mymap.on('overlayremove', function (event) {
+  if (event.layer == wards) {
+    legend_wards.remove(mymap);
+  }
+});
+
+mymap.on('overlayadd', function (event) {
+  if (event.layer == wards) {
+    legend_wards.addTo(mymap);
+  }
+});
+
+//Legende bzw. Downloadlink für die Rasterbilder
+var legend_SAR = L.control({
+  position: 'bottomleft'
+});
+
+legend_SAR.onAdd = function (mymap) {
+  var div = L.DomUtil.create('div', 'info-legend');
+
+  div.innerHTML += '<strong><center><font size=3> SAR-Bilder </strong>' + '<br>'
+  div.innerHTML += '<table><tr><td> 09.10.2019 </td><td> <a href="' + 'https://github.com/ManuN/FloodVPN_WebMap/blob/master/Daten/PAZ_20191009_4.png' + '">' + '<img src="Grafiken/Download.svg" height=18>' + '</a></td></tr>'
+  div.innerHTML += '<table><tr><td> 31.10.2019 </td><td> <a href="' + 'https://github.com/ManuN/FloodVPN_WebMap/blob/master/Daten/PAZ_20191031_3.png' + '">' + '<img src="Grafiken/Download.svg" height=18>' + '</a></td></tr>'
+  div.innerHTML += '<table><tr><td> 03.12.2019 </td><td> <a href="' + 'https://github.com/ManuN/FloodVPN_WebMap/blob/master/Daten/PAZ_20191203_2.png' + '">' + '<img src="Grafiken/Download.svg" height=18>' + '</a></td></tr>'
+  return div;
+};
+
+mymap.on('overlayremove', function (event) {
+  if (event.layer == empty) {
+    legend_SAR.remove(mymap);
+  }
+});
+
+mymap.on('overlayadd', function (event) {
+  if (event.layer == empty) {
+    legend_SAR.addTo(mymap);
+  }
+});
+
+var empty_test = 'Daten/empty.png';
+
+mymap.createPane('pane_empty_test'); //lediglich erstellung eines leeren rasterbilds zur erstellung des "Downloads". Nicht sonderlich schön aber funktioniert.
+mymap.getPane('pane_empty_test').style.zIndex = 303;
+var empty_test = 'Daten/empty.png';
+var empty_test_bounds = [
+  [16.412986579934838, 107.52032026444753],
+  [16.523355302540804, 107.64768331559847]
+];
+var empty = new L.imageOverlay(empty_test,
+  empty_test_bounds, {
+    pane: 'pane_empty_test'
+  });
+// #_3_# Ende //
 
 // #### Stadtteile ####
 
@@ -167,6 +261,7 @@ var wards =
 mymap.doubleClickZoom.disable(); // damit der Zoom beim Doppelklick ausgeschalten wird
 
 
+
 var baseMaps = [{
   groupName: "Basiskarten",
   expanded: true,
@@ -177,13 +272,17 @@ var baseMaps = [{
   }
 }]; // Variable für den Inhalt des Drop-Down Menüs "Basiskarten"
 
+
+
 var overlays = [{
     groupName: "SAR-Bilder",
     expanded: true,
+    exclusive: true,
     layers: {
       "09.10.2019": layer_PAZ_20191009_4,
       "31.10.2019": layer_PAZ_20191031_3,
-      "03.12.2019": layer_PAZ_20191203_2
+      "03.12.2019": layer_PAZ_20191203_2,
+      "Downloadlinks": empty
     }
   },
   {
@@ -204,11 +303,11 @@ var options = {
   collapsed: false
 }; // Optionen für die Layerübersicht
 
+
 var controles = L.Control.styledLayerControl(baseMaps, overlays, options); // Erstellung der Layerübersicht aus den vorherig definierten Variablen
 mymap.addControl(controles); //Hinzufügen der erstellten Layerübersicht zur Karte
 
 
-// ### MINIMAP ####
 
 
 
@@ -225,4 +324,4 @@ var miniMap_ctrl = new L.Control.MiniMap(minimapbase, {
   aimingRectOptions: {
     color: 'blue'
   }
-}).addTo(mymap); // Minimap wird erstellt und der Karte mit Otionen hinzugefügt
+}).addTo(mymap); // Minimap wird erstellt und der Karte mit Optionen hinzugefügt
