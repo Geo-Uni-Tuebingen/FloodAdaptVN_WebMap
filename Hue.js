@@ -78,12 +78,10 @@ Infobanner.onAdd = function (mymap) {
   div.innerHTML += '<table><tr><td>' + '<center><font size=0>' + '<a href="' + 'https://floodadapt.eoc.dlr.de' + '">' + '<img src="Grafiken/FloodAdapt.png" alt="" width="50%"></img>' + '</a>' 
   + '<br>' +'FloodAdaptVN – Integrating Ecosystem-based Approaches into Flood Risk' + '<br>' 
   + 'Management for Adaptive and Sustainable Urban Development in Central Viet Nam' + '</a></td>'
-  + '<td><font size=0>' + '<center>' + 'sponsored by' + '<br>'+ '<a href="' + 'https://www.bmbf.de/en/index.html' + '">' 
-  + '<img src="Grafiken/Ministerium.png" alt="" width="70%"></img>' + '</a></td></tr>'
+  + '<td><font size=0>' + '<center>' + 'sponsored by' + '<br>'+ '<a href="' + 'https://www.bmbf.de/en/index.html' + '">' + '<img src="Grafiken/Ministerium.png" alt="" width="70%"></img>' + '</a></td></tr>'
   
   return div;
 };
-
 
 
 Infobanner.addTo(mymap);
