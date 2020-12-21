@@ -309,8 +309,8 @@ mymap.addControl(controles); //Hinzufügen der erstellten Layerübersicht zur Ka
 
 
 
-var minimapbase = L.tileLayer('https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}{r}.png', {
-  attribution: '<a href="https://wikimediafoundation.org/wiki/Maps_Terms_of_Use">Wikimedia</a>',
+var minimapbase = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  attribution:  '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
   minZoom: 1,
   maxZoom: 19,
 }); // Variable Für die Basemap der Minimap wird erstellt
