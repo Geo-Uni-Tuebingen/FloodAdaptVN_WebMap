@@ -1,16 +1,17 @@
 //#### KARTEN-SETUP ####
 
 var mymap = L.map('mapid').setView([16.35, 107.6], 10);
+
+//#### KARTENOPTIONEN ####
+
+mymap.doubleClickZoom.disable(); // damit der Zoom beim Doppelklick ausgeschalten wird
+
 L.control.scale({
   imperial: false,
   metric: true,
   maxWidth: 150,
   position: 'bottomleft'
 }).addTo(mymap); // Maßstab wird Karte hinzugefügt
-
-//#### KARTENOPTIONEN ####
-
-mymap.doubleClickZoom.disable(); // damit der Zoom beim Doppelklick ausgeschalten wird
 
 // #### BASEMAPS ####
 
@@ -25,7 +26,6 @@ var OpenStreetMap = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.
   attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(mymap);
 
-
 var OpenTopoMap = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
   maxZoom: 17,
   attribution: 'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
@@ -39,7 +39,7 @@ var Esri_WorldImagery = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest
 
 var Infobanner = L.control({
   position: 'bottomright'
-});
+}); //Variable fürs Infobanner unten rechts (Bottomright)
 
 Infobanner.onAdd = function (mymap) {
   var div = L.DomUtil.create('div', 'info-legend');
@@ -47,11 +47,10 @@ Infobanner.onAdd = function (mymap) {
     '<br>' + 'FloodAdaptVN – Integrating Ecosystem-based Approaches into Flood Risk' + '<br>' +
     'Management for Adaptive and Sustainable Urban Development in Central Viet Nam' + '</a></td>' +
     '<td><font size=0>' + '<center>' + 'sponsored by' + '<br>' + '<a href="' + 'https://www.bmbf.de/en/index.html' + '">' + '<img src="Grafiken/Ministerium.png" alt="" width="70%"></img>' + '</a></td></tr>'
-
   return div;
-};
+}; //HTML für den Inhalt des Banners. Organisiert und einer Tabelle
 
-Infobanner.addTo(mymap);
+Infobanner.addTo(mymap); //Banner wird der Karte hinzugefügt
 
 //#### POPUPS ####
 
@@ -101,7 +100,7 @@ var Stations_all =
 // Messstationen: Legende bzw. Downloadlink
 var legend_stations = L.control({
   position: 'bottomleft'
-});
+}); //Postition der Legende wird in neu erstellter Variable geregelt.
 
 legend_stations.onAdd = function (mymap) {
   var div = L.DomUtil.create('div', 'info-legend');
@@ -111,9 +110,8 @@ legend_stations.onAdd = function (mymap) {
   div.innerHTML += '<img src="Marker/station_hydrological.svg" width=15, height=15>' + '&nbsp' + '&nbsp' + 'Hydrologie' + '<br>'
   div.innerHTML += '<img src="Marker/station_hydrometeorological.svg" width=15, height=15>' + '&nbsp' + '&nbsp' + 'Hydrologie und Niederschlag' + '<br>'
   div.innerHTML += '<center><a href="' + 'https://github.com/ManuN/FloodVPN_WebMap/blob/master/Daten/hydrometeorological_stations.js' + '">' + '<img src="Grafiken/Download.svg" height=20>' + '</a>' //Downlaodlink für die Messstationen
-
   return div;
-};
+}; //HTML für den Inhalt der Legende.
 
 legend_stations.addTo(mymap); // schon von Anfang an geladen, da Stationen bereits angezeigt werden
 
@@ -121,13 +119,13 @@ mymap.on('overlayremove', function (event) {
   if (event.layer == Stations_all) {
     legend_stations.remove(mymap);
   }
-});
+}); // Hier wird die Legende aus bzw. angeschalten wenn der aktive Layer "Stationts_all ist"
 
 mymap.on('overlayadd', function (event) {
   if (event.layer == Stations_all) {
     legend_stations.addTo(mymap);
   }
-});
+}); // Hier wird die Legende aus bzw. angeschalten wenn der aktive Layer "Stationts_all ist"
 
 //# Stadtteile #
 
@@ -155,12 +153,10 @@ var legend_wards = L.control({
 
 legend_wards.onAdd = function (mymap) {
   var div = L.DomUtil.create('div', 'info-legend');
-
   div.innerHTML += '<strong><center><font size=3> Stadtteile </strong>' + '<br>'
   div.innerHTML += '<center><a href="' + 'https://github.com/ManuN/FloodVPN_WebMap/blob/master/Daten/HueProvince_wards.js' + '">' + '<img src="Grafiken/Download.svg" height=20>' + '</a>' //Downlaodlink für die Stadtteile
-
   return div;
-};
+}; //HTML für den Inhalt der Legende.
 
 legend_wards.addTo(mymap); // schon von Anfang an geladen, da Stadtteile bereits angezeigt werden
 
@@ -168,13 +164,13 @@ mymap.on('overlayremove', function (event) {
   if (event.layer == wards) {
     legend_wards.remove(mymap);
   }
-});
+}); // Hier wird die Legende aus bzw. angeschalten wenn der aktive Layer "wards" ist
 
 mymap.on('overlayadd', function (event) {
   if (event.layer == wards) {
     legend_wards.addTo(mymap);
   }
-});
+}); // Hier wird die Legende aus bzw. angeschalten wenn der aktive Layer "wards" ist
 
 //# SAR Imagery #
 // versteh ich selbst nicht so genau, ist aus der in QGIS automatisch erstellbaren Webkarte entnommen und angepasst.
@@ -231,21 +227,21 @@ legend_SAR.onAdd = function (mymap) {
   div.innerHTML += '<table><tr><td> 31.10.2019 </td><td> <a href="' + 'https://github.com/ManuN/FloodVPN_WebMap/blob/master/Daten/PAZ_20191031_3.png' + '">' + '<img src="Grafiken/Download.svg" height=18>' + '</a></td></tr>'
   div.innerHTML += '<table><tr><td> 03.12.2019 </td><td> <a href="' + 'https://github.com/ManuN/FloodVPN_WebMap/blob/master/Daten/PAZ_20191203_2.png' + '">' + '<img src="Grafiken/Download.svg" height=18>' + '</a></td></tr>'
   return div;
-};
+}; //HTML für den Inhalt der Legende.
 
 mymap.on('overlayremove', function (event) {
   if (event.layer == empty) {
     legend_SAR.remove(mymap);
   }
-});
+}); // Hier werden die Downloadlinks aus bzw. angeschalten wenn der aktive Layer "empty" ist (dummylayer)
 
 mymap.on('overlayadd', function (event) {
   if (event.layer == empty) {
     legend_SAR.addTo(mymap);
   }
-});
+});// Hier werden die Downloadlinks aus bzw. angeschalten wenn der aktive Layer "empty" ist (dummylayer)
 
-var empty_test = 'Daten/empty.png';
+var empty_test = 'Daten/empty.png'; //Workaround damit ich die "Legende" für die SAR bilder einfügen kann. Empty.png ist ein 1x1 Pixel großes leeres Rasterbild.
 
 mymap.createPane('pane_empty_test'); //lediglich erstellung eines leeren rasterbilds zur erstellung des "Downloads". Nicht sonderlich schön aber funktioniert.
 mymap.getPane('pane_empty_test').style.zIndex = 303;
