@@ -314,13 +314,18 @@ mymap.addControl(controles); //Hinzufügen der erstellten Layerübersicht zur Ka
 
 
 
-
-
 var miniMap_ctrl = new L.Control.MiniMap(minimapbase, {
   toggleDisplay: true,
-  width: 180,
-  height: 160,
+  autoToggleDisplay: true,
+  minimized: true,
+  width: 250,
+  heigth: 150,
+  zoomLevelFixed: 9,
   aimingRectOptions: {
     color: 'blue'
   }
 }).addTo(mymap); // Minimap wird erstellt und der Karte mit Optionen hinzugefügt
+
+
+
+
