@@ -65,6 +65,181 @@ function Popup_wards(feature, layer) {
 
 //#### Daten ####
 
+
+
+
+
+var hash = new L.Hash(mymap);
+
+var autolinker = new Autolinker({
+  truncate: {
+    length: 30,
+    location: 'smart'
+  }
+});
+
+function Pupup_Szenarien(feature, layer) {
+  var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">Maximum_wa</th>\
+                        <td>' + (feature.properties['Maximum_wa'] !== null ? autolinker.link(feature.properties['Maximum_wa'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Duration_a</th>\
+                        <td>' + (feature.properties['Duration_a'] !== null ? autolinker.link(feature.properties['Duration_a'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+  layer.bindPopup(popupContent, {
+    maxHeight: 400
+  });
+}
+
+function style_scenarios(feature) {
+  if (feature.properties['Maximum_wa'] >= 0.000000 && feature.properties['Maximum_wa'] <= 0.100000) {
+    return {
+      stroke: false,
+      fill: true,
+      fillOpacity: 0.8,
+      fillColor: 'rgba(255,235,190,1.0)',
+      interactive: true,
+    }
+  }
+  if (feature.properties['Maximum_wa'] >= 0.100000 && feature.properties['Maximum_wa'] <= 0.500000) {
+    return {
+      stroke: false,
+      fill: true,
+      fillOpacity: 0.8,
+      fillColor: 'rgba(49,219,109,1.0)',
+      interactive: true,
+    }
+  }
+  if (feature.properties['Maximum_wa'] >= 0.500000 && feature.properties['Maximum_wa'] <= 1.000000) {
+    return {
+      stroke: false,
+      fill: true,
+      fillOpacity: 0.8,
+      fillColor: 'rgba(40,235,194,1.0)',
+      interactive: true,
+    }
+  }
+  if (feature.properties['Maximum_wa'] >= 1.000000 && feature.properties['Maximum_wa'] <= 2.000000) {
+    return {
+      stroke: false,
+      fill: true,
+      fillOpacity: 0.8,
+      fillColor: 'rgba(40,198,243,1.0)',
+      interactive: true,
+    }
+  }
+  if (feature.properties['Maximum_wa'] >= 2.000000 && feature.properties['Maximum_wa'] <= 3.000000) {
+    return {
+      stroke: false,
+      fill: true,
+      fillOpacity: 0.8,
+      fillColor: 'rgba(49,109,239,1.0)',
+      interactive: true,
+    }
+  }
+  if (feature.properties['Maximum_wa'] >= 3.000000 && feature.properties['Maximum_wa'] <= 20.000000) {
+    return {
+      stroke: false,
+      fill: true,
+      fillOpacity: 0.8,
+      fillColor: 'rgba(4,19,133,1.0)',
+      interactive: true,
+    }
+  }
+}
+mymap.createPane('pane_A0B0C0');
+mymap.getPane('pane_A0B0C0').style['mix-blend-mode'] = 'normal';
+var A0B0C0 = new L.geoJson(json_A0B0C0_0, {
+  interactive: true,
+  pane: 'pane_A0B0C0',
+  onEachFeature: Pupup_Szenarien,
+  style: style_scenarios,
+});
+
+mymap.createPane('pane_A0B2C0');
+mymap.getPane('pane_A0B2C0').style['mix-blend-mode'] = 'normal';
+var A0B2C0 = new L.geoJson(json_A0B2C0_0, {
+  interactive: true,
+  pane: 'pane_A0B2C0',
+  onEachFeature: Pupup_Szenarien,
+  style: style_scenarios,
+});
+
+mymap.createPane('pane_A0B1C0');
+mymap.getPane('pane_A0B1C0').style['mix-blend-mode'] = 'normal';
+var A0B1C0 = new L.geoJson(json_A0B1C0_0, {
+  interactive: true,
+  pane: 'pane_A0B1C0',
+  onEachFeature: Pupup_Szenarien,
+  style: style_scenarios,
+});
+
+mymap.on('overlayadd', function(eo) {
+  if (eo.name === 'A0B0C0') {
+    setTimeout(function() {
+      mymap.removeLayer(A0B2C0),
+      mymap.removeLayer(A0B1C0)
+    }, 10);
+  } else if (eo.name === 'A0B1C0') {
+    setTimeout(function() {
+      mymap.removeLayer(A0B0C0),
+      mymap.removeLayer(A0B2C0)
+    }, 10);
+  } else if (eo.name === 'A0B2C0') {
+    setTimeout(function() {
+      mymap.removeLayer(A0B0C0),
+      mymap.removeLayer(A0B1C0)
+    }, 10);
+  }
+});
+
+
+
+
+/*
+var bounds_group = new L.featureGroup([]);
+
+function pop_Hue_buildings_0(feature, layer) {
+  var popupContent = '<table>\
+          <tr>\
+              <td colspan="2">' + (feature.properties['height'] !== null ? autolinker.link(feature.properties['height'].toLocaleString()) : '') + '</td>\
+          </tr>\
+      </table>';
+  layer.bindPopup(popupContent, {maxHeight: 400});
+}
+
+function style_Hue_buildings_0_0() {
+  return {
+      pane: 'pane_Hue_buildings_0',
+      stroke: false, 
+      fill: true,
+      fillOpacity: 1,
+      fillColor: 'rgba(82,82,82,1.0)',
+      interactive: false,
+  }
+}
+mymap.createPane('pane_Hue_buildings_0');
+mymap.getPane('pane_Hue_buildings_0').style.zIndex = 400;
+mymap.getPane('pane_Hue_buildings_0').style['mix-blend-mode'] = 'normal';
+var layer_Hue_buildings_0 = new L.geoJson(json_Hue_buildings_0, {
+  attribution: '',
+  interactive: false,
+  dataVar: 'json_Hue_buildings_0',
+  layerName: 'layer_Hue_buildings_0',
+  pane: 'pane_Hue_buildings_0',
+  onEachFeature: pop_Hue_buildings_0,
+  style: style_Hue_buildings_0_0,
+});
+bounds_group.addLayer(layer_Hue_buildings_0);
+mymap.addLayer(layer_Hue_buildings_0);
+
+*/
+
+
+
 //# Messstationen #
 var Stations_all =
   L.geoJSON(stations, {
@@ -143,7 +318,7 @@ var wards =
   L.geoJSON(wards, {
     style: style_wards,
     onEachFeature: Popup_wards
-}).addTo(mymap);
+  }).addTo(mymap);
 
 // Stadtteile: Legende bzw. Downloadlink
 
@@ -186,7 +361,7 @@ var img_bounds_PAZ_20191203_2 = [
 var layer_PAZ_20191203_2 = new L.imageOverlay(img_PAZ_20191203_2,
   img_bounds_PAZ_20191203_2, {
     pane: 'pane_PAZ_20191203_2'
-});
+  });
 
 mymap.createPane('pane_PAZ_20191031_3');
 
@@ -212,7 +387,7 @@ var img_bounds_PAZ_20191009_4 = [
 var layer_PAZ_20191009_4 = new L.imageOverlay(img_PAZ_20191009_4,
   img_bounds_PAZ_20191009_4, {
     pane: 'pane_PAZ_20191009_4'
-});
+  });
 
 //SAR Imagery: Legende bzw. Downloadlink
 var legend_SAR = L.control({
@@ -239,7 +414,7 @@ mymap.on('overlayadd', function (event) {
   if (event.layer == empty) {
     legend_SAR.addTo(mymap);
   }
-});// Hier werden die Downloadlinks aus bzw. angeschalten wenn der aktive Layer "empty" ist (dummylayer)
+}); // Hier werden die Downloadlinks aus bzw. angeschalten wenn der aktive Layer "empty" ist (dummylayer)
 
 var empty_test = 'Daten/empty.png'; //Workaround damit ich die "Legende" für die SAR bilder einfügen kann. Empty.png ist ein 1x1 Pixel großes leeres Rasterbild.
 
@@ -253,9 +428,15 @@ var empty_test_bounds = [
 var empty = new L.imageOverlay(empty_test,
   empty_test_bounds, {
     pane: 'pane_empty_test'
-});
+  });
 
 //#### LAYERCONTROL ####
+
+
+
+
+
+
 
 var baseMaps = [{
   groupName: "Basiskarten",
@@ -280,24 +461,43 @@ var overlays = [{
   },
   {
     groupName: "Grunddaten",
-    expanded: true,
+    expanded: false,
     layers: {
       "Messstationen": Stations_all,
       "Stadtteile": wards
     }
+  },
+  {
+    groupName: "Hochwasserszenarien",
+    expanded: true,
+    exclusive: true,
+    layers: {
+      "A0B0C0":A0B0C0,
+      "A0B1C0":A0B1C0,
+      "A0B2C0":A0B2C0,
+    }
   }
 ]; // Variable für den Inhalt des Drop-Down Menüs "SAR-Bilder" und "Grunddaten"
 
+
+
+
+
+
+
+
+
+
 var options = {
   container_width: "300px",
-  container_maxHeight: "350px",
+  container_maxHeight: "600px",
   group_maxHeight: "80px",
   exclusive: false,
-  collapsed: false
+  collapsed: false,
 }; // Optionen für die Layerübersicht
 
-var controles = L.Control.styledLayerControl(baseMaps, overlays, options); // Erstellung der Layerübersicht aus den vorherig definierten Variablen
-mymap.addControl(controles); //Hinzufügen der erstellten Layerübersicht zur Karte
+var control = L.Control.styledLayerControl(baseMaps, overlays, options); // Erstellung der Layerübersicht aus den vorherig definierten Variablen
+mymap.addControl(control); //Hinzufügen der erstellten Layerübersicht zur Karte
 
 //#### MINIMAP ####
 
