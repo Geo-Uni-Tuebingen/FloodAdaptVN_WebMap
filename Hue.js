@@ -159,6 +159,16 @@ var A0B0C0 = new L.geoJson(json_A0B0C0_0, {
   style: style_scenarios,
 });
 
+mymap.createPane('pane_A0B1C0');
+mymap.getPane('pane_A0B1C0').style['mix-blend-mode'] = 'normal';
+var A0B1C0 = new L.geoJson(json_A0B1C0_0, {
+  interactive: true,
+  pane: 'pane_A0B1C0',
+  onEachFeature: Pupup_Szenarien,
+  style: style_scenarios,
+});
+
+
 mymap.createPane('pane_A0B2C0');
 mymap.getPane('pane_A0B2C0').style['mix-blend-mode'] = 'normal';
 var A0B2C0 = new L.geoJson(json_A0B2C0_0, {
@@ -168,14 +178,6 @@ var A0B2C0 = new L.geoJson(json_A0B2C0_0, {
   style: style_scenarios,
 });
 
-mymap.createPane('pane_A0B1C0');
-mymap.getPane('pane_A0B1C0').style['mix-blend-mode'] = 'normal';
-var A0B1C0 = new L.geoJson(json_A0B1C0_0, {
-  interactive: true,
-  pane: 'pane_A0B1C0',
-  onEachFeature: Pupup_Szenarien,
-  style: style_scenarios,
-});
 
 mymap.on('overlayadd', function(eo) {
   if (eo.name === 'A0B0C0') {
@@ -448,15 +450,13 @@ var baseMaps = [{
 }]; // Variable für den Inhalt des Drop-Down Menüs "Basiskarten"
 
 var overlays = [{
-    groupName: "SAR-Bilder",
-    expanded: true,
-    exclusive: true,
-    layers: {
-      "09.10.2019": layer_PAZ_20191009_4,
-      "31.10.2019": layer_PAZ_20191031_3,
-      "03.12.2019": layer_PAZ_20191203_2,
-      "Downloadlinks": empty
-    }
+  groupName: "Hochwasserszenarien",
+  expanded: true,
+  layers: {
+    "A0B0C0":A0B0C0,
+    "A0B1C0":A0B1C0,
+    "A0B2C0":A0B2C0,
+  }
   },
   {
     groupName: "Grunddaten",
@@ -467,16 +467,16 @@ var overlays = [{
     }
   },
   {
-    groupName: "Hochwasserszenarien",
-    expanded: true,
+    groupName: "SAR-Bilder",
+    expanded: false,
     layers: {
-      "A0B0C0":A0B0C0,
-      "A0B1C0":A0B1C0,
-      "A0B2C0":A0B2C0,
+      "09.10.2019": layer_PAZ_20191009_4,
+      "31.10.2019": layer_PAZ_20191031_3,
+      "03.12.2019": layer_PAZ_20191203_2,
+      "Downloadlinks": empty
     }
   }
 ]; // Variable für den Inhalt des Drop-Down Menüs "SAR-Bilder" und "Grunddaten"
-
 
 
 
