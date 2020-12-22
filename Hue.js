@@ -235,7 +235,6 @@ var layer_Hue_buildings_0 = new L.geoJson(json_Hue_buildings_0, {
 });
 bounds_group.addLayer(layer_Hue_buildings_0);
 mymap.addLayer(layer_Hue_buildings_0);
-
 */
 
 
@@ -470,7 +469,6 @@ var overlays = [{
   {
     groupName: "Hochwasserszenarien",
     expanded: true,
-    exclusive: true,
     layers: {
       "A0B0C0":A0B0C0,
       "A0B1C0":A0B1C0,
