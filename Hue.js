@@ -1,3 +1,13 @@
+/*
+TO DO
+- Download links in eine Tabelle
+- Downloadlink für die Gebäude hinzufügen
+- Downloadlinks aus einzelnen Lgenden entfernen
+- Popup_Szenarien
+*/
+
+
+
 //#### KARTEN-SETUP ####
 
 var mymap = L.map('mapid').setView([16.35, 107.6], 10);
@@ -66,8 +76,61 @@ function Popup_wards(feature, layer) {
 //#### Daten ####
 
 
+//# Gebäude #
+
+mymap.createPane('pane_Buildings');
+mymap.getPane('pane_Buildings').style.zIndex = 500;
+var img_Buildings = 'Daten/Buildings.png';
+var img_bounds_Buildings = [
+  [16.39481535876353,107.52265396816951],[16.572865485914637,107.63020027398443]
+];
+var layer_Buildings = new L.imageOverlay(img_Buildings,
+  img_bounds_Buildings, {
+    pane: 'pane_Buildings'
+  });
+mymap.addLayer(layer_Buildings);
+
+/* GEBÄUDE ALS VEKTOREN
+var bounds_group = new L.featureGroup([]);
+
+function pop_Hue_buildings_0(feature, layer) {
+  var popupContent = '<table>\
+          <tr>\
+              <td colspan="2">' + (feature.properties['height'] !== null ? autolinker.link(feature.properties['height'].toLocaleString()) : '') + '</td>\
+          </tr>\
+      </table>';
+  layer.bindPopup(popupContent, {maxHeight: 400});
+}
+
+function style_Hue_buildings_0_0() {
+  return {
+      pane: 'pane_Hue_buildings_0',
+      stroke: false, 
+      fill: true,
+      fillOpacity: 1,
+      fillColor: 'rgba(82,82,82,1.0)',
+      interactive: false,
+  }
+}
+mymap.createPane('pane_Hue_buildings_0');
+mymap.getPane('pane_Hue_buildings_0').style.zIndex = 400;
+mymap.getPane('pane_Hue_buildings_0').style['mix-blend-mode'] = 'normal';
+var layer_Hue_buildings_0 = new L.geoJson(json_Hue_buildings_0, {
+  attribution: '',
+  interactive: false,
+  dataVar: 'json_Hue_buildings_0',
+  layerName: 'layer_Hue_buildings_0',
+  pane: 'pane_Hue_buildings_0',
+  onEachFeature: pop_Hue_buildings_0,
+  style: style_Hue_buildings_0_0,
+});
+bounds_group.addLayer(layer_Hue_buildings_0);
+mymap.addLayer(layer_Hue_buildings_0);
+*/
 
 
+
+//# Szenarien #
 
 var hash = new L.Hash(mymap);
 
@@ -201,46 +264,6 @@ mymap.on('overlayadd', function(eo) {
 
 
 
-/*
-var bounds_group = new L.featureGroup([]);
-
-function pop_Hue_buildings_0(feature, layer) {
-  var popupContent = '<table>\
-          <tr>\
-              <td colspan="2">' + (feature.properties['height'] !== null ? autolinker.link(feature.properties['height'].toLocaleString()) : '') + '</td>\
-          </tr>\
-      </table>';
-  layer.bindPopup(popupContent, {maxHeight: 400});
-}
-
-function style_Hue_buildings_0_0() {
-  return {
-      pane: 'pane_Hue_buildings_0',
-      stroke: false, 
-      fill: true,
-      fillOpacity: 1,
-      fillColor: 'rgba(82,82,82,1.0)',
-      interactive: false,
-  }
-}
-mymap.createPane('pane_Hue_buildings_0');
-mymap.getPane('pane_Hue_buildings_0').style.zIndex = 400;
-mymap.getPane('pane_Hue_buildings_0').style['mix-blend-mode'] = 'normal';
-var layer_Hue_buildings_0 = new L.geoJson(json_Hue_buildings_0, {
-  attribution: '',
-  interactive: false,
-  dataVar: 'json_Hue_buildings_0',
-  layerName: 'layer_Hue_buildings_0',
-  pane: 'pane_Hue_buildings_0',
-  onEachFeature: pop_Hue_buildings_0,
-  style: style_Hue_buildings_0_0,
-});
-bounds_group.addLayer(layer_Hue_buildings_0);
-mymap.addLayer(layer_Hue_buildings_0);
-*/
-
-
-
 //# Messstationen #
 var Stations_all =
   L.geoJSON(stations, {
@@ -309,8 +332,8 @@ function style_wards(feature) { // setzt nacher den style der STadtteile fest
   return {
     fillColor: 'white',
     weight: 1.8,
-    opacity: 0.5,
-    color: 'red',
+    opacity: 0.3,
+    color: 'darkred',
     fillOpacity: 0.0
   };
 };
@@ -463,7 +486,8 @@ var overlays = [{
     expanded: false,
     layers: {
       "Messstationen": Stations_all,
-      "Stadtteile": wards
+      "Stadtteile": wards,
+      "Gebäude": layer_Buildings
     }
   },
   {
