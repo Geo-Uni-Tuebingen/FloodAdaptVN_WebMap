@@ -7,38 +7,38 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   sodipodi:docname="Download.svg"
-   inkscape:version="1.0 (4035a4fb49, 2020-05-01)"
-   id="svg1019"
-   version="1.1"
-   viewBox="0 0 54.163169 14.054345"
+   width="14.540464mm"
    height="14.054345mm"
-   width="54.16317mm">
+   viewBox="0 0 14.540464 14.054345"
+   version="1.1"
+   id="svg1019"
+   inkscape:version="1.0 (4035a4fb49, 2020-05-01)"
+   sodipodi:docname="Download.svg">
   <defs
      id="defs1013" />
   <sodipodi:namedview
-     inkscape:window-maximized="1"
-     inkscape:window-y="-8"
-     inkscape:window-x="-8"
-     inkscape:window-height="987"
-     inkscape:window-width="1680"
-     fit-margin-bottom="0"
-     fit-margin-right="0"
-     fit-margin-left="0"
-     fit-margin-top="0"
-     showgrid="false"
-     inkscape:document-rotation="0"
-     inkscape:current-layer="layer1"
-     inkscape:document-units="mm"
-     inkscape:cy="-10.64789"
-     inkscape:cx="60.522479"
-     inkscape:zoom="1.4"
-     inkscape:pageshadow="2"
-     inkscape:pageopacity="0.0"
-     borderopacity="1.0"
-     bordercolor="#666666"
+     id="base"
      pagecolor="#ffffff"
-     id="base" />
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="5.6"
+     inkscape:cx="23.254046"
+     inkscape:cy="32.822282"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     inkscape:document-rotation="0"
+     showgrid="false"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:window-width="1680"
+     inkscape:window-height="987"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1" />
   <metadata
      id="metadata1016">
     <rdf:RDF>
@@ -52,27 +52,20 @@
     </rdf:RDF>
   </metadata>
   <g
-     transform="translate(-103.67828,-89.254504)"
-     id="layer1"
+     inkscape:label="Ebene 1"
      inkscape:groupmode="layer"
-     inkscape:label="Ebene 1">
+     id="layer1"
+     transform="translate(-103.49495,-89.432567)">
     <rect
-       y="90.255714"
-       x="104.67949"
-       height="12.051925"
-       width="52.160751"
+       style="fill:#ffffff;stroke:#2f6077;stroke-width:2.00242;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers fill stroke"
        id="rect1594"
-       style="fill:#ffffff;stroke:#397693;stroke-width:2.00242;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;paint-order:markers fill stroke" />
-    <text
-       id="text1592"
-       y="99.964668"
-       x="107.90217"
-       style="font-style:normal;font-weight:normal;font-size:10.5833px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
-       xml:space="preserve"><tspan
-         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'PT Sans';-inkscape-font-specification:'PT Sans Bold';stroke-width:0.264583"
-         y="99.964668"
-         x="107.90217"
-         id="tspan1590"
-         sodipodi:role="line">Download</tspan></text>
+       width="12.538044"
+       height="12.051925"
+       x="104.49616"
+       y="90.433777" />
+    <path
+       d="m 109.48981,92.750931 v 3.448885 H 106.891 l 3.87419,3.968754 3.87418,-3.968754 h -2.59829 v -3.448885 h -1.27589 z"
+       style="opacity:1;fill:#2f6077;fill-opacity:1;stroke:#2f6077;stroke-width:0.965;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path835" />
   </g>
 </svg>

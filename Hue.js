@@ -1,8 +1,5 @@
 /*
 TO DO
-- Download links in eine Tabelle
-- Downloadlink für die Gebäude hinzufügen
-- Downloadlinks aus einzelnen Lgenden entfernen
 - Popup_Szenarien
 */
 
@@ -45,14 +42,14 @@ var Esri_WorldImagery = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest
   attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
 });
 
-//#### INFOBANNER ####
+//#### INFOBANNER ####//
 
 var Infobanner = L.control({
   position: 'bottomright'
 }); //Variable fürs Infobanner unten rechts (Bottomright)
 
 Infobanner.onAdd = function (mymap) {
-  var div = L.DomUtil.create('div', 'info-legend');
+  var div = L.DomUtil.create('div', 'info');
   div.innerHTML += '<table><tr><td>' + '<center><font size=0>' + '<a href="' + 'https://floodadapt.eoc.dlr.de' + '">' + '<img src="Grafiken/FloodAdapt.png" alt="" width="50%"></img>' + '</a>' +
     '<br>' + 'FloodAdaptVN – Integrating Ecosystem-based Approaches into Flood Risk' + '<br>' +
     'Management for Adaptive and Sustainable Urban Development in Central Viet Nam' + '</a></td>' +
@@ -62,7 +59,7 @@ Infobanner.onAdd = function (mymap) {
 
 Infobanner.addTo(mymap); //Banner wird der Karte hinzugefügt
 
-//#### POPUPS ####
+//#### POPUPS ####//
 
 var Popupoptionen = {
   'maxWidth': '600',
@@ -261,6 +258,99 @@ mymap.on('overlayadd', function(eo) {
   }
 });
 
+ 
+
+
+
+
+
+// Legenden für die einzelnen Szenarien. Etwas globig aber eine schlankere Variante mit einer Legende für alle hat nicht funktioniert :c
+
+var legend_A0B0C0 = L.control({position: 'bottomleft'});
+
+legend_A0B0C0.onAdd = function (mymap) {
+    var div = L.DomUtil.create('div', 'info legend',);
+          div.innerHTML += '<strong><center><font size=3>HW-Szenarien </strong>' + '<font size=0>[Max_wa]' + '<br>'
+          div.innerHTML += 
+          '<i style="background:' + '#041385' + '"></i> '  + '> 3 - 20'  + '<br>' +
+          '<i style="background:' + '#316def' + '"></i> '  + '> 2 - 3'  + '<br>' +
+          '<i style="background:' + '#28c6f3' + '"></i> '  + '> 1 - 2'  + '<br>' +
+          '<i style="background:' + '#28ebc2' + '"></i> '  + '> 0.5 - 1'  + '<br>' +
+          '<i style="background:' + '#31db6d' + '"></i> '  + '> 0.1 - 0.5' + '<br>' +
+          '<i style="background:' + '#ffebbe' + '"></i> '  + '&nbsp'+ '&nbsp'+ '&nbsp'+ '0 - 0.1' + '<br>' 
+    return div;
+};
+
+mymap.on('overlayremove', function (event) {
+  if (event.layer == A0B0C0) {
+    legend_A0B0C0.remove(mymap);
+  }
+}); // Hier wird die Legende aus bzw. angeschalten wenn der aktive Layer einer der Szenarien ist
+
+mymap.on('overlayadd', function (event) {
+  if (event.layer == A0B0C0) {
+    legend_A0B0C0.addTo(mymap);
+  }
+}); // Hier wird die Legende aus bzw. angeschalten wenn der aktive Layer einer der Szenarien ist
+
+
+
+
+var legend_A0B1C0 = L.control({position: 'bottomleft'});
+
+legend_A0B1C0.onAdd = function (mymap) {
+    var div = L.DomUtil.create('div', 'info legend',);
+          div.innerHTML += '<strong><center><font size=3>HW-Szenarien </strong>' + '<font size=0>[Max_wa]' + '<br>'
+          div.innerHTML += 
+          '<i style="background:' + '#041385' + '"></i> '  + '> 3 - 20'  + '<br>' +
+          '<i style="background:' + '#316def' + '"></i> '  + '> 2 - 3'  + '<br>' +
+          '<i style="background:' + '#28c6f3' + '"></i> '  + '> 1 - 2'  + '<br>' +
+          '<i style="background:' + '#28ebc2' + '"></i> '  + '> 0.5 - 1'  + '<br>' +
+          '<i style="background:' + '#31db6d' + '"></i> '  + '> 0.1 - 0.5' + '<br>' +
+          '<i style="background:' + '#ffebbe' + '"></i> '  + '&nbsp'+ '&nbsp'+ '&nbsp'+ '0 - 0.1' + '<br>' 
+    return div;
+};
+
+mymap.on('overlayremove', function (event) {
+  if (event.layer == A0B1C0) {
+    legend_A0B1C0.remove(mymap);
+  }
+}); // Hier wird die Legende aus bzw. angeschalten wenn der aktive Layer einer der Szenarien ist
+
+mymap.on('overlayadd', function (event) {
+  if (event.layer == A0B1C0) {
+    legend_A0B1C0.addTo(mymap);
+  }
+}); // Hier wird die Legende aus bzw. angeschalten wenn der aktive Layer einer der Szenarien ist
+
+
+
+var legend_A0B2C0 = L.control({position: 'bottomleft'});
+
+legend_A0B2C0.onAdd = function (mymap) {
+    var div = L.DomUtil.create('div', 'info legend',);
+          div.innerHTML += '<strong><center><font size=3>HW-Szenarien </strong>' + '<font size=0>[Max_wa]' + '<br>'
+          div.innerHTML += 
+          '<i style="background:' + '#041385' + '"></i> '  + '> 3 - 20'  + '<br>' +
+          '<i style="background:' + '#316def' + '"></i> '  + '> 2 - 3'  + '<br>' +
+          '<i style="background:' + '#28c6f3' + '"></i> '  + '> 1 - 2'  + '<br>' +
+          '<i style="background:' + '#28ebc2' + '"></i> '  + '> 0.5 - 1'  + '<br>' +
+          '<i style="background:' + '#31db6d' + '"></i> '  + '> 0.1 - 0.5' + '<br>' +
+          '<i style="background:' + '#ffebbe' + '"></i> '  + '&nbsp'+'&nbsp'+ '&nbsp'+ '0 - 0.1' + '<br>' 
+    return div;
+};
+
+mymap.on('overlayremove', function (event) {
+  if (event.layer == A0B2C0) {
+    legend_A0B2C0.remove(mymap);
+  }
+}); // Hier wird die Legende aus bzw. angeschalten wenn der aktive Layer einer der Szenarien ist
+
+mymap.on('overlayadd', function (event) {
+  if (event.layer == A0B2C0) {
+    legend_A0B2C0.addTo(mymap);
+  }
+}); // Hier wird die Legende aus bzw. angeschalten wenn der aktive Layer einer der Szenarien ist
 
 
 
@@ -302,13 +392,12 @@ var legend_stations = L.control({
 }); //Postition der Legende wird in neu erstellter Variable geregelt.
 
 legend_stations.onAdd = function (mymap) {
-  var div = L.DomUtil.create('div', 'info-legend');
+  var div = L.DomUtil.create('div', 'info');
 
   div.innerHTML += '<strong><center><font size=3>Messstationen </strong>' + '<br>'
   div.innerHTML += '<img src="Marker/station_rainfall.svg" width=15, height=15>' + '&nbsp' + '&nbsp' + 'Niederschlag' + '<br>'
   div.innerHTML += '<img src="Marker/station_hydrological.svg" width=15, height=15>' + '&nbsp' + '&nbsp' + 'Hydrologie' + '<br>'
   div.innerHTML += '<img src="Marker/station_hydrometeorological.svg" width=15, height=15>' + '&nbsp' + '&nbsp' + 'Hydrologie und Niederschlag' + '<br>'
-  div.innerHTML += '<center><a href="' + 'https://github.com/ManuN/FloodVPN_WebMap/blob/master/Daten/hydrometeorological_stations.js' + '">' + '<img src="Grafiken/Download.svg" height=20>' + '</a>' //Downlaodlink für die Messstationen
   return div;
 }; //HTML für den Inhalt der Legende.
 
@@ -344,20 +433,6 @@ var wards =
     onEachFeature: Popup_wards
   }).addTo(mymap);
 
-// Stadtteile: Legende bzw. Downloadlink
-
-var legend_wards = L.control({
-  position: 'bottomleft'
-});
-
-legend_wards.onAdd = function (mymap) {
-  var div = L.DomUtil.create('div', 'info-legend');
-  div.innerHTML += '<strong><center><font size=3> Stadtteile </strong>' + '<br>'
-  div.innerHTML += '<center><a href="' + 'https://github.com/ManuN/FloodVPN_WebMap/blob/master/Daten/HueProvince_wards.js' + '">' + '<img src="Grafiken/Download.svg" height=20>' + '</a>' //Downlaodlink für die Stadtteile
-  return div;
-}; //HTML für den Inhalt der Legende.
-
-legend_wards.addTo(mymap); // schon von Anfang an geladen, da Stadtteile bereits angezeigt werden
 
 mymap.on('overlayremove', function (event) {
   if (event.layer == wards) {
@@ -419,7 +494,7 @@ var legend_SAR = L.control({
 });
 
 legend_SAR.onAdd = function (mymap) {
-  var div = L.DomUtil.create('div', 'info-legend');
+  var div = L.DomUtil.create('div', 'info');
 
   div.innerHTML += '<strong><center><font size=3> SAR-Bilder </strong>' + '<br>'
   div.innerHTML += '<table><tr><td> 09.10.2019 </td><td> <a href="' + 'https://github.com/ManuN/FloodVPN_WebMap/blob/master/Daten/PAZ_20191009_4.png' + '">' + '<img src="Grafiken/Download.svg" height=18>' + '</a></td></tr>'
@@ -534,3 +609,25 @@ var miniMap_ctrl = new L.Control.MiniMap(minimapbase, {
     color: 'blue'
   }
 }).addTo(mymap); // Minimap wird erstellt und der Karte mit Optionen hinzugefügt
+
+
+
+
+
+//#### DOWNLOADKASTEN ####//
+
+var Downloadkasten = L.control({
+  position: 'topright'
+}); //Variable für den Downloadkasten oben rechts (Topright) aber unter der Layer-Control
+
+Downloadkasten.onAdd = function (mymap) {
+  var div = L.DomUtil.create('div', 'info');
+  div.innerHTML += '<strong><center><font size=3> Datendownload </strong>' + '<br>' 
+  div.innerHTML +=  '<a href="' + 'https://github.com/ManuN/FloodVPN_WebMap/blob/master/Daten/Buildings.png' + '">' + '<img src="Grafiken/Download.svg" height=12>' + '</a>' + '&nbsp' + 'Gebäude' +'<br>' +
+    '<a href="' + 'https://github.com/ManuN/FloodVPN_WebMap/blob/master/Daten/hydrometeorological_stations.js' + '">' + '<img src="Grafiken/Download.svg" height=12>' + '</a>' +  '&nbsp' + 'Messstationen' +'<br>' +
+    '<a href="' + 'https://github.com/ManuN/FloodVPN_WebMap/blob/master/Daten/HueProvince_wards.js' + '">' + '<img src="Grafiken/Download.svg" height=12>' + '</a>'+ '&nbsp' + 'Stadtteile' + '<br>' +
+    '<a href="' + 'https://github.com/ManuN/FloodVPN_WebMap/tree/master/Daten/scenarios' + '">' + '<img src="Grafiken/Download.svg" height=12>' + '</a>'+ '&nbsp' + 'HW-Szenarien'  
+  return div;
+}; //HTML für den Inhalt des Downloadfensters
+
+Downloadkasten.addTo(mymap); //Downloadkasten wird der Karte hinzugefügt
