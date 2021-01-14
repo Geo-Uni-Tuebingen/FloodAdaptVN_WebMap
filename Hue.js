@@ -1,10 +1,8 @@
 /*
 TO DO
-5.	Ich habe noch eine Landuse-Map hochgeladen geht das auch wie bei den Flut-Szenarien, dass die JPG der Legende dann eingeblendet wird?
-
 radar images: University of Tübingen, PAZ images provided by INTA within AO01 PI no. 022
-Land use plan: Adjusted land use plan of the Thua Thien Hue province from 06.06.2018 (Resolution No. 72 / ND-CP)
 
+Leider gehen dann bei der Gebäude-Symbologie die grauen Gebäude etwas unter. Hast du einen Vorschlag für eine sinnvolle Farbgebung (die sich nicht mit den Hochwasser-Szenarien überschneidet) und sinnvolle Klassen hat? Die letzte Klasse kann natürlich einfach > 7m heißen. Un d 0 m Gebäude sollten eigentlich keine mehr drin sein, das kann man auch aus der Legende streichen. Vielleicht reichen ja wirklich 5 Klassen: 0-2, 2-4, 4-6, 6-8 und >8.
 */
 
 
@@ -21,7 +19,7 @@ L.control.scale({
   metric: true,
   maxWidth: 150,
   position: 'bottomleft'
-}).addTo(mymap); // Maßstab wird Karte hinzugefügt
+}); // Maßstab wird Karte hinzugefügt
 
 // #### BASEMAPS ####
 
@@ -48,7 +46,7 @@ var Esri_WorldImagery = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest
 var Esri_WorldGrayCanvas = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
 	attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ',
 	maxZoom: 16
-});
+}).addTo(mymap);
 
 //#### INFOBANNER ####//
 
@@ -84,6 +82,49 @@ function Popup_wards(feature, layer) {
 
 
 //#### Daten ####
+//# Landnutzung#
+var hash = new L.Hash(mymap);
+var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
+var bounds_group = new L.featureGroup([]);
+function setBounds() {
+}
+mymap.createPane('pane_BandoDCQH2020TTHue_jpeg90_0');
+mymap.getPane('pane_BandoDCQH2020TTHue_jpeg90_0').style.zIndex = 300;
+var img_BandoDCQH2020TTHue_jpeg90_0 = 'Daten/BandoDCQH2020TTHue_jpeg90_0.png';
+var img_bounds_BandoDCQH2020TTHue_jpeg90_0 = [[15.994916751,107.016077553],[16.743120093,108.194437908]];
+var layer_BandoDCQH2020TTHue_jpeg90_0 = new L.imageOverlay(img_BandoDCQH2020TTHue_jpeg90_0,
+                                      img_bounds_BandoDCQH2020TTHue_jpeg90_0,
+                                      {pane: 'pane_BandoDCQH2020TTHue_jpeg90_0'});
+bounds_group.addLayer(layer_BandoDCQH2020TTHue_jpeg90_0);
+
+//Legende Landnutzung
+
+
+var legend_landuse = L.control({
+  position: 'bottomleft'
+}); //Position der Legende wird in neu erstellter Variable geregelt.
+
+legend_landuse.onAdd = function (mymap) {
+  var div = L.DomUtil.create('div', 'info');
+  div.innerHTML += '<strong><font size=3>Landuse </strong>' + '<br>'
+  div.innerHTML += '<img src="Daten/Ban do DCQH2020 TT Hue_legend.jpg" width=500>' + '<br>'
+  div.innerHTML += '<font size=0>Source: Adjusted land use plan of the Thua Thien Hue province from 06.06.2018 (Resolution No. 72 / ND-CP)'
+  return div;
+}; //HTML für den Inhalt der Legende.
+
+
+mymap.on('overlayremove', function (event) {
+  if (event.layer == layer_BandoDCQH2020TTHue_jpeg90_0) {
+    legend_landuse.remove(mymap);
+  }
+}); // Hier wird die Legende aus bzw. angeschalten wenn der aktive Layer "Stationts_all ist"
+
+mymap.on('overlayadd', function (event) {
+  if (event.layer == layer_BandoDCQH2020TTHue_jpeg90_0) {
+    legend_landuse.addTo(mymap);
+  }
+}); // Hier wird die Legende aus bzw. angeschalten wenn der aktive Layer "Stationts_all ist"
+
 
 
 //# Gebäude #
@@ -184,14 +225,15 @@ var autolinker = new Autolinker({
   }
 });
 
+
 function Popup_Szenarien(feature, layer) {
   var popupContent = '<table>\
                     <tr>\
-                        <th scope="row">Maximum_wa</th>\
+                        <th scope="row">Water depth [m]:</th>\
                         <td>' + (feature.properties['Maximum_wa'] !== null ? autolinker.link(feature.properties['Maximum_wa'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">Duration_a</th>\
+                        <th scope="row">Flood duration [min]:</th>\
                         <td>' + (feature.properties['Duration_a'] !== null ? autolinker.link(feature.properties['Duration_a'].toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
@@ -316,12 +358,12 @@ legend_A0B0C0.onAdd = function (mymap) {
           div.innerHTML += '<font size=1>Without consideration of climate change' + '<br>'
           div.innerHTML += '<strong>' + '<font size=0>Water depth [m]' + '<br>'
           div.innerHTML += 
-          '<i style="background:' + '#041385' + '"></i> '  + '> 3 - 20'  + '<br>' +
+          '<i style="background:' + '#041385' + '"></i> '  + '> 3'  + '<br>' +
           '<i style="background:' + '#316def' + '"></i> '  + '> 2 - 3'  + '<br>' +
           '<i style="background:' + '#28c6f3' + '"></i> '  + '> 1 - 2'  + '<br>' +
           '<i style="background:' + '#28ebc2' + '"></i> '  + '> 0.5 - 1'  + '<br>' +
           '<i style="background:' + '#31db6d' + '"></i> '  + '> 0.1 - 0.5' + '<br>' +
-          '<i style="background:' + '#ffebbe' + '"></i> '  + '&nbsp'+'&nbsp'+ '&nbsp'+ '0 - 0.1' + '<br>' 
+          '<i style="background:' + '#ffebbe' + '"></i> '  + '< 0.1' + '<br>' 
           div.innerHTML += '<font size=0>Source: M-BRACE project (2014): Tuyen, H.T., Hoa, N.V., Minh, N.D.:<br>Assessing Flood Drainage Capacity of Hue City under Impacts of <br>Urban Development and Climate Change, Technical Report.'
 return div;
 };
@@ -349,12 +391,12 @@ legend_A0B1C0.onAdd = function (mymap) {
           div.innerHTML += '<font size=1>Precipiation increase of 22.9%, sea level rise of 13 cm' + '<br>'
           div.innerHTML += '<strong>' + '<font size=0>Water depth [m]' + '<br>'
           div.innerHTML += 
-          '<i style="background:' + '#041385' + '"></i> '  + '> 3 - 20'  + '<br>' +
+          '<i style="background:' + '#041385' + '"></i> '  + '> 3'  + '<br>' +
           '<i style="background:' + '#316def' + '"></i> '  + '> 2 - 3'  + '<br>' +
           '<i style="background:' + '#28c6f3' + '"></i> '  + '> 1 - 2'  + '<br>' +
           '<i style="background:' + '#28ebc2' + '"></i> '  + '> 0.5 - 1'  + '<br>' +
           '<i style="background:' + '#31db6d' + '"></i> '  + '> 0.1 - 0.5' + '<br>' +
-          '<i style="background:' + '#ffebbe' + '"></i> '  + '&nbsp'+'&nbsp'+ '&nbsp'+ '0 - 0.1' + '<br>' 
+          '<i style="background:' + '#ffebbe' + '"></i> '  + '< 0.1' + '<br>' 
           div.innerHTML += '<font size=0>Source: M-BRACE project (2014): Tuyen, H.T., Hoa, N.V., Minh, N.D.:<br>Assessing Flood Drainage Capacity of Hue City under Impacts of <br>Urban Development and Climate Change, Technical Report.'
     return div;
 };
@@ -381,12 +423,12 @@ legend_A0B2C0.onAdd = function (mymap) {
           div.innerHTML += '<font size=1>Precipiation increase of 44.3%, sea level rise of 26 cm ' + '<br>'
           div.innerHTML += '<strong>' + '<font size=0>Water depth [m]' + '<br>'
           div.innerHTML += 
-          '<i style="background:' + '#041385' + '"></i> '  + '> 3 - 20'  + '<br>' +
+          '<i style="background:' + '#041385' + '"></i> '  + '> 3'  + '<br>' +
           '<i style="background:' + '#316def' + '"></i> '  + '> 2 - 3'  + '<br>' +
           '<i style="background:' + '#28c6f3' + '"></i> '  + '> 1 - 2'  + '<br>' +
           '<i style="background:' + '#28ebc2' + '"></i> '  + '> 0.5 - 1'  + '<br>' +
           '<i style="background:' + '#31db6d' + '"></i> '  + '> 0.1 - 0.5' + '<br>' +
-          '<i style="background:' + '#ffebbe' + '"></i> '  + '&nbsp'+'&nbsp'+ '&nbsp'+ '0 - 0.1' + '<br>' 
+          '<i style="background:' + '#ffebbe' + '"></i> '  + '< 0.1' + '<br>' 
           div.innerHTML += '<font size=0>Source: M-BRACE project (2014): Tuyen, H.T., Hoa, N.V., Minh, N.D.:<br>Assessing Flood Drainage Capacity of Hue City under Impacts of <br>Urban Development and Climate Change, Technical Report.'
     return div;
 };
@@ -626,7 +668,8 @@ var overlays = [{
     layers: {
       "Climate stations": Stations_all,
       "Wards": wards,
-      "Buildings": layer_Buildings
+      "Buildings": layer_Buildings,
+      "Landuse": layer_BandoDCQH2020TTHue_jpeg90_0
     }
   },
   {
@@ -678,7 +721,8 @@ Downloadkasten.onAdd = function (mymap) {
   div.innerHTML +=  '<a href="' + 'https://github.com/ManuN/FloodVPN_WebMap/blob/master/Daten/Buildings.png' + '">' + '<img src="Grafiken/Download.svg" height=12>' + '</a>' + '&nbsp' + 'Buildings' +'<br>' +
     '<a href="' + 'https://github.com/ManuN/FloodVPN_WebMap/blob/master/Daten/hydrometeorological_stations.js' + '">' + '<img src="Grafiken/Download.svg" height=12>' + '</a>' +  '&nbsp' + 'Climate stations' +'<br>' +
     '<a href="' + 'https://github.com/ManuN/FloodVPN_WebMap/blob/master/Daten/HueProvince_wards.js' + '">' + '<img src="Grafiken/Download.svg" height=12>' + '</a>'+ '&nbsp' + 'Wards' + '<br>' +
-    '<a href="' + 'https://github.com/ManuN/FloodVPN_WebMap/tree/master/Daten/scenarios' + '">' + '<img src="Grafiken/Download.svg" height=12>' + '</a>'+ '&nbsp' + 'Flood scenarios'  
+    '<a href="' + 'https://github.com/ManuN/FloodVPN_WebMap/tree/master/Daten/scenarios' + '">' + '<img src="Grafiken/Download.svg" height=12>' + '</a>'+ '&nbsp' + 'Flood scenarios' +
+    '<a href="' + 'https://github.com/ManuN/FloodVPN_WebMap/blob/master/Daten/Ban%20do%20DCQH2020%20TT%20Hue_jpeg90.tif' + '">' + '<img src="Grafiken/Download.svg" height=12>' + '</a>'+ '&nbsp' + 'Landuse plan'   
   return div;
 }; //HTML für den Inhalt des Downloadfensters
 
