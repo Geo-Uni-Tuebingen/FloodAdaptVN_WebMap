@@ -3,6 +3,12 @@ TO DO
 radar images: University of Tübingen, PAZ images provided by INTA within AO01 PI no. 022
 
 Leider gehen dann bei der Gebäude-Symbologie die grauen Gebäude etwas unter. Hast du einen Vorschlag für eine sinnvolle Farbgebung (die sich nicht mit den Hochwasser-Szenarien überschneidet) und sinnvolle Klassen hat? Die letzte Klasse kann natürlich einfach > 7m heißen. Un d 0 m Gebäude sollten eigentlich keine mehr drin sein, das kann man auch aus der Legende streichen. Vielleicht reichen ja wirklich 5 Klassen: 0-2, 2-4, 4-6, 6-8 und >8.
+
+
+das wäre dann aber neben den Häusern und den Download-Links mit den ZIP-Dateien definitiv der letzte Schliff. 
+Quelle. Land use of 2017, Provided by JAXA (Japan Aerospace Exploration Agency). Duong, P. C., Trung, T. H., Nasahara, K. N., & Tadono, T. (2018): JAXA High-Resolution Land Use/Land Cover Map for Central Vietnam in 2007 and 2017. Remote Sensing, 10(9), 1406.
+
+
 */
 
 
@@ -82,6 +88,8 @@ function Popup_wards(feature, layer) {
 
 
 //#### Daten ####
+
+
 //# Landnutzung#
 var hash = new L.Hash(mymap);
 var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
@@ -106,7 +114,7 @@ var legend_landuse = L.control({
 
 legend_landuse.onAdd = function (mymap) {
   var div = L.DomUtil.create('div', 'info');
-  div.innerHTML += '<strong><font size=3>Landuse </strong>' + '<br>'
+  div.innerHTML += '<strong><font size=3>Land use plan</strong>' + '<br>' + '<font size=1>Adjusted land use plan for 2016-2020'+ '<br>'
   div.innerHTML += '<img src="Daten/Ban do DCQH2020 TT Hue_legend.jpg" width=500>' + '<br>'
   div.innerHTML += '<font size=0>Source: Adjusted land use plan of the Thua Thien Hue province from 06.06.2018 (Resolution No. 72 / ND-CP)'
   return div;
@@ -129,11 +137,15 @@ mymap.on('overlayadd', function (event) {
 
 //# Gebäude #
 
+
+
+
+
 mymap.createPane('pane_Buildings');
 mymap.getPane('pane_Buildings').style.zIndex = 500;
-var img_Buildings = 'Daten/Buildings_height.png';
+var img_Buildings = 'Daten/Buildings.png';
 var img_bounds_Buildings = [
-  [16.394815358763527,107.52265396816951],[16.509399358763527,107.63019796816951]
+  [16.394815359,107.522653968],[16.509399468,107.630200323]
 ];
 var layer_Buildings = new L.imageOverlay(img_Buildings,
   img_bounds_Buildings, {
@@ -152,12 +164,11 @@ legend_Buildings.onAdd = function (mymap) {
           div.innerHTML += '<strong><font size=3>Buildings</strong>' + '<br>'
           div.innerHTML += '<strong>' + '<font size=0>Height [m]' + '<br>'
           div.innerHTML += 
-          '<i style="background:' + '#000000' + '"></i> '  + '0'  + '<br>' +
-          '<i style="background:' + '#b0b0b0' + '"></i> '  + '2'  + '<br>' +
-          '<i style="background:' + '#ffbfbf' + '"></i> '  + '3'  + '<br>' +
-          '<i style="background:' + '#ff8080' + '"></i> '  + '4' + '<br>' +
-          '<i style="background:' + '#ff4040' + '"></i> '  + '5 - 6'  + '<br>' +
-          '<i style="background:' + '#ff0000' + '"></i> '  + '7 - 48' + '<br>' 
+          '<i style="background:' + '#5a0100' + '"></i> '  + '2 - 3'  + '<br>' +
+          '<i style="background:' + '#ad0104' + '"></i> '  + '4 - 5'  + '<br>' +
+          '<i style="background:' + '#ff0109' + '"></i> '  + '6 - 7'  + '<br>' +
+          '<i style="background:' + '#ff5b20' + '"></i> '  + '8 - 9' + '<br>' +
+          '<i style="background:' + '#feb537' + '"></i> '  + '> 9'  + '<br>' 
           div.innerHTML += '<font size=0>Source: GIS Hue Project (2006-2011): <br>Thua Thien Hue Department of Science and Technology<br>and Vietnam natural resources and environment corporation <br>under regulation number of 2123/QĐ-UBND Thua Thien<br>Hue people committee 24/6/2005'
 return div;
 };
@@ -669,7 +680,7 @@ var overlays = [{
       "Climate stations": Stations_all,
       "Wards": wards,
       "Buildings": layer_Buildings,
-      "Landuse": layer_BandoDCQH2020TTHue_jpeg90_0
+      "Landuse plan": layer_BandoDCQH2020TTHue_jpeg90_0
     }
   },
   {
@@ -721,8 +732,7 @@ Downloadkasten.onAdd = function (mymap) {
   div.innerHTML +=  '<a href="' + 'https://github.com/ManuN/FloodVPN_WebMap/blob/master/Daten/Buildings.png' + '">' + '<img src="Grafiken/Download.svg" height=12>' + '</a>' + '&nbsp' + 'Buildings' +'<br>' +
     '<a href="' + 'https://github.com/ManuN/FloodVPN_WebMap/blob/master/Daten/hydrometeorological_stations.js' + '">' + '<img src="Grafiken/Download.svg" height=12>' + '</a>' +  '&nbsp' + 'Climate stations' +'<br>' +
     '<a href="' + 'https://github.com/ManuN/FloodVPN_WebMap/blob/master/Daten/HueProvince_wards.js' + '">' + '<img src="Grafiken/Download.svg" height=12>' + '</a>'+ '&nbsp' + 'Wards' + '<br>' +
-    '<a href="' + 'https://github.com/ManuN/FloodVPN_WebMap/tree/master/Daten/scenarios' + '">' + '<img src="Grafiken/Download.svg" height=12>' + '</a>'+ '&nbsp' + 'Flood scenarios' +
-    '<a href="' + 'https://github.com/ManuN/FloodVPN_WebMap/blob/master/Daten/Ban%20do%20DCQH2020%20TT%20Hue_jpeg90.tif' + '">' + '<img src="Grafiken/Download.svg" height=12>' + '</a>'+ '&nbsp' + 'Landuse plan'   
+    '<a href="' + 'https://github.com/ManuN/FloodVPN_WebMap/tree/master/Daten/scenarios' + '">' + '<img src="Grafiken/Download.svg" height=12>' + '</a>'+ '&nbsp' + 'Flood scenarios'   
   return div;
 }; //HTML für den Inhalt des Downloadfensters
 
