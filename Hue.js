@@ -1,14 +1,6 @@
 /*
 TO DO
 radar images: University of Tübingen, PAZ images provided by INTA within AO01 PI no. 022
-
-Leider gehen dann bei der Gebäude-Symbologie die grauen Gebäude etwas unter. Hast du einen Vorschlag für eine sinnvolle Farbgebung (die sich nicht mit den Hochwasser-Szenarien überschneidet) und sinnvolle Klassen hat? Die letzte Klasse kann natürlich einfach > 7m heißen. Un d 0 m Gebäude sollten eigentlich keine mehr drin sein, das kann man auch aus der Legende streichen. Vielleicht reichen ja wirklich 5 Klassen: 0-2, 2-4, 4-6, 6-8 und >8.
-
-
-das wäre dann aber neben den Häusern und den Download-Links mit den ZIP-Dateien definitiv der letzte Schliff. 
-Quelle. Land use of 2017, Provided by JAXA (Japan Aerospace Exploration Agency). Duong, P. C., Trung, T. H., Nasahara, K. N., & Tadono, T. (2018): JAXA High-Resolution Land Use/Land Cover Map for Central Vietnam in 2007 and 2017. Remote Sensing, 10(9), 1406.
-
-
 */
 
 
@@ -184,46 +176,6 @@ mymap.on('overlayadd', function (event) {
     legend_Buildings.addTo(mymap);
   }
 });
-
-/* GEBÄUDE ALS VEKTOREN
-var bounds_group = new L.featureGroup([]);
-
-function pop_Hue_buildings_0(feature, layer) {
-  var popupContent = '<table>\
-          <tr>\
-              <td colspan="2">' + (feature.properties['height'] !== null ? autolinker.link(feature.properties['height'].toLocaleString()) : '') + '</td>\
-          </tr>\
-      </table>';
-  layer.bindPopup(popupContent, {maxHeight: 400});
-}
-
-function style_Hue_buildings_0_0() {
-  return {
-      pane: 'pane_Hue_buildings_0',
-      stroke: false, 
-      fill: true,
-      fillOpacity: 1,
-      fillColor: 'rgba(82,82,82,1.0)',
-      interactive: false,
-  }
-}
-mymap.createPane('pane_Hue_buildings_0');
-mymap.getPane('pane_Hue_buildings_0').style.zIndex = 400;
-mymap.getPane('pane_Hue_buildings_0').style['mix-blend-mode'] = 'normal';
-var layer_Hue_buildings_0 = new L.geoJson(json_Hue_buildings_0, {
-  attribution: '',
-  interactive: false,
-  dataVar: 'json_Hue_buildings_0',
-  layerName: 'layer_Hue_buildings_0',
-  pane: 'pane_Hue_buildings_0',
-  onEachFeature: pop_Hue_buildings_0,
-  style: style_Hue_buildings_0_0,
-});
-bounds_group.addLayer(layer_Hue_buildings_0);
-mymap.addLayer(layer_Hue_buildings_0);
-*/
-
-
 
 //# Szenarien #
 
@@ -606,56 +558,12 @@ var layer_PAZ_20191009_4 = new L.imageOverlay(img_PAZ_20191009_4,
     pane: 'pane_PAZ_20191009_4'
   });
 
-//SAR Imagery: Legende bzw. Downloadlink
-
-/*
-var legend_SAR = L.control({
-  position: 'bottomleft'
-});
-
-legend_SAR.onAdd = function (mymap) {
-  var div = L.DomUtil.create('div', 'info');
-
-  div.innerHTML += '<strong><font size=3> SAR-Imagery </strong>' + '<br>'
-  div.innerHTML += '<table><tr><td> 09.10.2019 </td><td> <a href="' + 'https://github.com/ManuN/FloodVPN_WebMap/blob/master/Daten/PAZ_20191009_4.png' + '">' + '<img src="Grafiken/Download.svg" height=18>' + '</a></td></tr>'
-  div.innerHTML += '<table><tr><td> 31.10.2019 </td><td> <a href="' + 'https://github.com/ManuN/FloodVPN_WebMap/blob/master/Daten/PAZ_20191031_3.png' + '">' + '<img src="Grafiken/Download.svg" height=18>' + '</a></td></tr>'
-  div.innerHTML += '<table><tr><td> 03.12.2019 </td><td> <a href="' + 'https://github.com/ManuN/FloodVPN_WebMap/blob/master/Daten/PAZ_20191203_2.png' + '">' + '<img src="Grafiken/Download.svg" height=18>' + '</a></td></tr>'
-  return div;
-}; //HTML für den Inhalt der Legende.
-
-mymap.on('overlayremove', function (event) {
-  if (event.layer == empty) {
-    legend_SAR.remove(mymap);
-  }
-}); // Hier werden die Downloadlinks aus bzw. angeschalten wenn der aktive Layer "empty" ist (dummylayer)
-
-mymap.on('overlayadd', function (event) {
-  if (event.layer == empty) {
-    legend_SAR.addTo(mymap);
-  }
-}); // Hier werden die Downloadlinks aus bzw. angeschalten wenn der aktive Layer "empty" ist (dummylayer)
-
-var empty_test = 'Daten/empty.png'; //Workaround damit ich die "Legende" für die SAR bilder einfügen kann. Empty.png ist ein 1x1 Pixel großes leeres Rasterbild.
-
-mymap.createPane('pane_empty_test'); //lediglich erstellung eines leeren rasterbilds zur erstellung des "Downloads". Nicht sonderlich schön aber funktioniert.
-mymap.getPane('pane_empty_test').style.zIndex = 303;
-var empty_test = 'Daten/empty.png';
-var empty_test_bounds = [
-  [16.412986579934838, 107.52032026444753],
-  [16.523355302540804, 107.64768331559847]
-];
-var empty = new L.imageOverlay(empty_test,
-  empty_test_bounds, {
-    pane: 'pane_empty_test'
-  });
-
- */
 
 //#### LAYERCONTROL ####
 
 var baseMaps = [{
   groupName: "Basemaps",
-  expanded: false,
+  expanded: true,
   layers: {
     "OSM": OpenStreetMap,
     "Open Topo Map": OpenTopoMap,
@@ -666,7 +574,7 @@ var baseMaps = [{
 
 var overlays = [{
   groupName: "Flood scenarios",
-  expanded: false,
+  expanded: true,
   layers: {
     "A0B0C0":A0B0C0,
     "A0B1C0":A0B1C0,
@@ -675,7 +583,7 @@ var overlays = [{
   },
   {
     groupName: "Basedata",
-    expanded: false,
+    expanded: true,
     layers: {
       "Climate stations": Stations_all,
       "Wards": wards,
@@ -685,7 +593,7 @@ var overlays = [{
   },
   {
     groupName: "SAR-Imagery",
-    expanded: false,
+    expanded: true,
     layers: {
       "09.10.2019": layer_PAZ_20191009_4,
       "31.10.2019": layer_PAZ_20191031_3,
