@@ -551,7 +551,7 @@ var layer_PAZ_20191009_4 = new L.imageOverlay(img_PAZ_20191009_4,
 
 var baseMaps = [{
   groupName: "Basemaps",
-  expanded: true,
+  expanded: false,
   layers: {
     "OSM": OpenStreetMap,
     "Open Topo Map": OpenTopoMap,
@@ -562,7 +562,7 @@ var baseMaps = [{
 
 var overlays = [{
     groupName: "Flood scenarios",
-    expanded: true,
+    expanded: false,
     layers: {
       "A0B0C0": A0B0C0,
       "A0B1C0": A0B1C0,
@@ -571,7 +571,7 @@ var overlays = [{
   },
   {
     groupName: "Basedata",
-    expanded: true,
+    expanded: false,
     layers: {
       "Climate stations": Stations_all,
       "Wards": wards,
@@ -580,8 +580,8 @@ var overlays = [{
     }
   },
   {
-    groupName: "Radar-Imagery",
-    expanded: true,
+    groupName: "RADAR-Imagery",
+    expanded: false,
     layers: {
       "09.10.2019": layer_PAZ_20191009_4,
       "31.10.2019": layer_PAZ_20191031_3,
@@ -625,10 +625,10 @@ var Downloadkasten = L.control({
 Downloadkasten.onAdd = function (mymap) {
   var div = L.DomUtil.create('div', 'info');
   div.innerHTML += '<strong><font size=3> Data-Download </strong>' + '<br>'
-  div.innerHTML += '<a href="' + 'https://github.com/ManuN/FloodVPN_WebMap/raw/master/Downloadsektion/Nha_buildings_2000_WGS84_height.zip' + '">' + '<img src="Grafiken/Download.svg" height=12>' + '</a>' + '&nbsp' + 'Buildings' + '<br>' +
-    '<a href="' + 'https://github.com/ManuN/FloodVPN_WebMap/raw/master/Downloadsektion/hydrometeorological_stations.zip' + '">' + '<img src="Grafiken/Download.svg" height=12>' + '</a>' + '&nbsp' + 'Climate stations' + '<br>' +
-    '<a href="' + 'https://github.com/ManuN/FloodVPN_WebMap/raw/master/Downloadsektion/HueProvince_wards.zip' + '">' + '<img src="Grafiken/Download.svg" height=12>' + '</a>' + '&nbsp' + 'Wards' + '<br>' +
-    '<a href="' + 'https://github.com/ManuN/FloodVPN_WebMap/raw/master/Downloadsektion/Flood_scenarios.zip' + '">' + '<img src="Grafiken/Download.svg" height=12>' + '</a>' + '&nbsp' + 'Flood scenarios'
+  div.innerHTML += '<a href="' + 'https://github.com/Geo-Uni-Tuebingen/FloodAdaptVN_WebMap/tree/master/Downloadsektion/Nha_buildings_2000_WGS84_height.zip' + '">' + '<img src="Grafiken/Download.svg" height=12>' + '</a>' + '&nbsp' + 'Buildings' + '<br>' +
+    '<a href="' + 'https://github.com/Geo-Uni-Tuebingen/FloodAdaptVN_WebMap/tree/master/Downloadsektion/hydrometeorological_stations.zip' + '">' + '<img src="Grafiken/Download.svg" height=12>' + '</a>' + '&nbsp' + 'Climate stations' + '<br>' +
+    '<a href="' + 'https://github.com/Geo-Uni-Tuebingen/FloodAdaptVN_WebMap/tree/master/Downloadsektion/HueProvince_wards.zip' + '">' + '<img src="Grafiken/Download.svg" height=12>' + '</a>' + '&nbsp' + 'Wards' + '<br>' +
+    '<a href="' + 'https://github.com/Geo-Uni-Tuebingen/FloodAdaptVN_WebMap/tree/master/Downloadsektion/Flood_scenarios.zip' + '">' + '<img src="Grafiken/Download.svg" height=12>' + '</a>' + '&nbsp' + 'Flood scenarios'
   return div;
 }; //HTML für den Inhalt des Downloadfensters
 
