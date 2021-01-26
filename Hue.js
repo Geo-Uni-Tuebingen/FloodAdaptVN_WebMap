@@ -580,7 +580,7 @@ var overlays = [{
     }
   },
   {
-    groupName: "SAR-Imagery",
+    groupName: "Radar-Imagery",
     expanded: true,
     layers: {
       "09.10.2019": layer_PAZ_20191009_4,
