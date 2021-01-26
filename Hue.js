@@ -625,11 +625,12 @@ var Downloadkasten = L.control({
 Downloadkasten.onAdd = function (mymap) {
   var div = L.DomUtil.create('div', 'info');
   div.innerHTML += '<strong><font size=3> Data-Download </strong>' + '<br>'
-  div.innerHTML += '<a href="' + 'https://github.com/Geo-Uni-Tuebingen/FloodAdaptVN_WebMap/tree/master/Downloadsektion/Nha_buildings_2000_WGS84_height.zip' + '">' + '<img src="Grafiken/Download.svg" height=12>' + '</a>' + '&nbsp' + 'Buildings' + '<br>' +
-    '<a href="' + 'https://github.com/Geo-Uni-Tuebingen/FloodAdaptVN_WebMap/tree/master/Downloadsektion/hydrometeorological_stations.zip' + '">' + '<img src="Grafiken/Download.svg" height=12>' + '</a>' + '&nbsp' + 'Climate stations' + '<br>' +
-    '<a href="' + 'https://github.com/Geo-Uni-Tuebingen/FloodAdaptVN_WebMap/tree/master/Downloadsektion/HueProvince_wards.zip' + '">' + '<img src="Grafiken/Download.svg" height=12>' + '</a>' + '&nbsp' + 'Wards' + '<br>' +
-    '<a href="' + 'https://github.com/Geo-Uni-Tuebingen/FloodAdaptVN_WebMap/tree/master/Downloadsektion/Flood_scenarios.zip' + '">' + '<img src="Grafiken/Download.svg" height=12>' + '</a>' + '&nbsp' + 'Flood scenarios'
+  div.innerHTML += '<a href="' + 'https://github.com/Geo-Uni-Tuebingen/FloodAdaptVN_WebMap/raw/master/Downloadsektion/Nha_buildings_2000_WGS84_height.zip' + '">' + '<img src="Grafiken/Download.svg" height=12>' + '</a>' + '&nbsp' + 'Buildings' + '<br>' +
+    '<a href="' + 'https://github.com/Geo-Uni-Tuebingen/FloodAdaptVN_WebMap/raw/master/Downloadsektion/hydrometeorological_stations.zip' + '">' + '<img src="Grafiken/Download.svg" height=12>' + '</a>' + '&nbsp' + 'Climate stations' + '<br>' +
+    '<a href="' + 'https://github.com/Geo-Uni-Tuebingen/FloodAdaptVN_WebMap/raw/master/Downloadsektion/HueProvince_wards.zip' + '">' + '<img src="Grafiken/Download.svg" height=12>' + '</a>' + '&nbsp' + 'Wards' + '<br>' +
+    '<a href="' + 'https://github.com/Geo-Uni-Tuebingen/FloodAdaptVN_WebMap/raw/master/Downloadsektion/Flood_scenarios.zip' + '">' + '<img src="Grafiken/Download.svg" height=12>' + '</a>' + '&nbsp' + 'Flood scenarios'
   return div;
 }; //HTML für den Inhalt des Downloadfensters
 
 Downloadkasten.addTo(mymap); //Downloadkasten wird der Karte hinzugefügt
+
